@@ -14,6 +14,12 @@ body{
     align-items: center;
   }
 
+  h1 {
+      background-color: red;
+      justify-content: center;
+      align-items: initial;
+  }
+
   .container {
       width: 800px;
       max-width: 80%;
