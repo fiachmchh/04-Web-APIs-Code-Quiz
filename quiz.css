@@ -7,17 +7,14 @@ body{
     background-color: lightcyan;
     padding: 0;
     margin: 0;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+    
   }
 
   h1 {
       background-color: red;
-      justify-content: center;
-      align-items: initial;
+      position: center;
+      text-align-last: center;
+
   }
 
   .container {
@@ -27,6 +24,7 @@ body{
       border-radius: 5px;
       padding: 10px;
       box-shadow: 0 0 10px 2px;
+      
   }
 
   .btn-grid {

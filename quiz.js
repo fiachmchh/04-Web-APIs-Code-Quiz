@@ -1,13 +1,12 @@
 
 
-const startButton = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
+var startButton = document.getElementById('start-btn')
+var nextButton = document.getElementById('next-btn')
+var questionContainerElement = document.getElementById('question-container')
+var questionElement = document.getElementById('question')
+var answerButtonsElement = document.getElementById('answer-buttons')
 
-
-let shuffledQuestions, currentQuestionIndex
+var shuffledQuestions, currentQuestionIndex
 
 
 //OR...startButton.addEventListener('click', startGame (plus start timer function or new event listener))
@@ -17,19 +16,23 @@ nextButton.addEventListener('click', () => {
     setNextQuestion()
 })
 
-var timeleft = 100;
-var downloadTimer = setInterval(function function1(){
-    document.getElementById("countdown").innerHTML = timeleft + 
-   "&nbsp"+"seconds remaining";
+document.getElementById("start-btn").addEventListener("click", function(){
+    var timeleft = 100;
 
-   
+    var downloadTimer = setInterval(function startTimer(){
+        document.getElementById("countdown").innerHTML = timeleft + 
+       "&nbsp"+"seconds remaining";
 
-   timeleft -= 1;
-if(timeleft <= 0){
-   clearInterval(downloadTimer);
-   document.getElementById("countdown").innerHTML = "Time is up!"
-}
-}, 1000);
+       timeleft -= 1;
+    if(timeleft <= 0){
+       clearInterval(downloadTimer);
+       document.getElementById("countdown").innerHTML = "Time is up!"
+    }
+    }, 1000);
+    
+    console.log(countdown);
+
+});
 
 function startGame() {
     //console.log('Started')
@@ -39,50 +42,6 @@ function startGame() {
     questionContainerElement.classList.remove('hide')
     setNextQuestion()
 }
-
-    
-   
-
-// function f1(sec) {//define (declare) sec as parameter
-//     f2(); //call the function
-//     var f = new Date();
-//     document.getElementById("countdown").innerHTML = "Your started your quiz at " + f.getHours() + ":" + f.getMinutes();
-//     var showtime = document.getElementById("showtime"); //used many times
-//     //Here we put (closure) f2
-//     function f2() {
-//       //f2 knows sec from parent scope
-//       if (sec <= 0) {//parseInt(sec) no need. sec is int
-//         showtime.innerHTML = 'Time is over'; 
-//         //ShowAnswers(); //show on the same page or post to .php
-//         return;
-//       }
-//         sec--;// = parseInt(sec) - 1;
-//         showtime.innerHTML = "Your Left Time  is :" + Math.floor(sec / 60) +" Minutes ," + (sec % 60) +" Seconds";
-//         setTimeout(f2, 1000);//"f2()" is correct but this way is better
-//     /* no need in remaining code
-//     }
-//     else {
-//         if (parseInt(sec) == 0) {
-//             min = parseInt(min) - 1;
-//             if (parseInt(min) == 0) {
-//                 clearTimeout(tim);
-//                 location.href = "www.rawlanguages.com";
-//             }
-//             else {
-//                 sec = 60;
-//                 document.getElementById("showtime").innerHTML = "Your Left Time  is :" + min + " Minutes ," + sec + " Seconds";
-//                 tim = setTimeout("f2()", 1000);
-//             }
-//         }
-
-//     }
-//     */
-// }//f2
-// }//f1
-
-// // function startTimer() {
-
-// // }
 
 function setNextQuestion() {
     resetState()
