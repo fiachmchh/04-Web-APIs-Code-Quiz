@@ -1,4 +1,58 @@
-
+//QUESTIONS TO BE INCLUDED IN QUIZ
+var correctAnswer = 0
+var incorrectAnswer = 0
+var questions = [
+    {
+        question: 'what color are frogs?',
+        answers: [
+            { text: 'green', correct: true},
+            { text: 'red', wrong: false},
+            { text: 'orange', wrong: false},
+            { text: 'purple', wrong: false}
+        ],
+        correct: 'green'
+    },
+    {
+        question: 'Who was the first man on the moon?',
+        answers: [
+            { text: 'Edwin "Buzz" Aldrin', wrong: false},
+            { text: 'Neil Armstrong', correct: true},
+            { text: 'Alan B. Shepard Jr.', wrong: false},
+            { text: 'George Bush Sr', wrong: false}
+        ],
+        correct: 'Neil Armstrong'
+    },
+    {
+        question: 'When was the electric guitar invented?',
+        answers: [
+            { text: '1929', wrong: false},
+            { text: '1899', wrong: false},
+            { text: '1931', correct: true},
+            { text: '1912', wrong: false}
+        ],
+        correct: '1931'
+    },
+    {
+        question: 'What is the worlds largest country by landmass?',
+        answers: [
+            { text: 'Canada', wrong: false},
+            { text: 'USA', wrong: false},
+            { text: 'China', wrong: false},
+            { text: 'Russia', correct: true}
+        ],
+        correct: 'Russia'
+    },
+    {
+        question: 'How many miles on average is the moon from earth?',
+        answers: [
+            { text: '238,855 miles', correct: true},
+            { text: '256,985 miles', wrong: false},
+            { text: '100,000 miles', wrong: false},
+            { text: '56,775 miles', wrong: false}
+        ],
+        correct: '238,855 miles'
+    }
+]
 
 var startButton = document.getElementById('start-btn')
 var nextButton = document.getElementById('next-btn')
@@ -8,6 +62,11 @@ var answerButtonsElement = document.getElementById('answer-buttons')
 
 var shuffledQuestions, currentQuestionIndex
 
+// TIMED QUIZ ON JS THAT STORES HIGHSCORES
+
+//ONCE START BUTTON IS CLICKED...
+
+
 
 //OR...startButton.addEventListener('click', startGame (plus start timer function or new event listener))
 startButton.addEventListener('click', startGame)
@@ -15,6 +74,8 @@ nextButton.addEventListener('click', () => {
     currentQuestionIndex++
     setNextQuestion()
 })
+
+//A TIMER STARTS...
 
 document.getElementById("start-btn").addEventListener("click", function(){
     var timeleft = 100;
@@ -29,10 +90,12 @@ document.getElementById("start-btn").addEventListener("click", function(){
        document.getElementById("countdown").innerHTML = "Time is up!"
     }
     }, 1000);
-    
-    console.log(countdown);
+
+    //console.log(countdown);
 
 });
+
+// AND A QUESTION IS PRESENTED TO THE USER
 
 function startGame() {
     //console.log('Started')
@@ -42,6 +105,8 @@ function startGame() {
     questionContainerElement.classList.remove('hide')
     setNextQuestion()
 }
+
+//UPON ANSWERING, ANOTHER QUESTION IS PUT TO THE USER
 
 function setNextQuestion() {
     resetState()
@@ -54,6 +119,7 @@ function showQuestion(question) {
         const button = document.createElement('button')
         button.innerText = answer.text
         button.classList.add('btn')
+        button.value = answer.text
         if (answer.correct) {
             button.dataset.correct = answer.correct
         }
@@ -71,8 +137,18 @@ function resetState() {
 }
 
 function selectAnswer(e) {
+    //console.log('SELECT ANSWER HAPPENING!!')
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
+    console.log('SELECT ANSWER HAPPENING!!', e.target.value)
+
+    console.log('ccorrect answer!!', questions[currentQuestionIndex].correct)
+    
+    if (e.target.value === questions[currentQuestionIndex].correct){
+     correctAnswer++
+     console.log('we found match',correctAnswer)
+    }
+
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
@@ -80,6 +156,17 @@ function selectAnswer(e) {
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
+        console.log('HIT THE ELSE!! TIME TO RESTART!!!')
+
+        var h = document.createElement("H1");
+        var t = document.createTextNode("Your score is " + correctAnswer + " out of 5!");
+        h.appendChild(t);
+        document.getElementById('answer-buttons').appendChild(h);
+
+
+
+
+
         startButton.innerText = 'Restart'
         startButton.classList.remove('hide')
     }
@@ -99,111 +186,35 @@ function clearStatusClass(element) {
     element.classList.remove('wrong')
 }
 
-const questions = [
-    {
-        question: 'what color are frogs?',
-        answers: [
-            { text: 'green', correct: true},
-            { text: 'red', correct: false},
-            { text: 'orange', correct: false},
-            { text: 'purple', correct: false}
-        ]
-    },
-    {
-        question: 'Who was the first man on the moon?',
-        answers: [
-            { text: 'Edwin "Buzz" Aldrin', correct: false},
-            { text: 'Neil Armstrong', correct: true},
-            { text: 'Alan B. Shepard Jr.', correct: false},
-            { text: 'George Bush Sr', correct: false}
-        ]
-    },
-    {
-        question: 'When was the electric guitar invented?',
-        answers: [
-            { text: '1929', correct: false},
-            { text: '1899', correct: false},
-            { text: '1931', correct: true},
-            { text: '1912', correct: false}
-        ]
-    },
-    {
-        question: 'What is the worlds largest country by landmass?',
-        answers: [
-            { text: 'Canada', correct: false},
-            { text: 'USA', correct: false},
-            { text: 'China', correct: false},
-            { text: 'Russia', correct: true}
-        ]
-    },
-    {
-        question: 'what color are frogs?',
-        answers: [
-            { text: 'green', correct: true},
-            { text: 'red', correct: false},
-            { text: 'red', correct: false},
-            { text: 'red', correct: false}
-        ]
-    }
-]
 
 
 
 
+document.querySelector(".btn").onclick = function() {
+    console.log('you got clicked')
+}
+// IF PLAYER SELECTS CORRECT ANSWER, SCORE + 1
 
+let score = 0;
+document.getElementById("next-btn").onclick = function() {
+    var  answers = document.getElementById("answer-buttons").value;
+    console.log('we got clicked!!', answers)
+    console.log('ccorrect answer!!', questions[currentQuestionIndex].correct)
 
-// TIMED QUIZ ON JS THAT STORES HIGHSCORES
-
-//ONCE START BUTTON IS CLICKED...
-
-
-
-//A TIMER STARTS...
-
-// AND A QUESTION IS PRESENTED TO THE USER
-
-//UPON ANSWERING, ANOTHER QUESTION IS PUT TO THE USER
-
-//WHEN A QUESTION IS ANSWERED INCORRECTLY THEN TIME IS SUBRACTED FROM THE CLOCK
-
-//GAME OVER WHEN ALL QUESTIONS ARE ANSWERED OR WHEN THE TIMER REACHES 0
-
-//AFTER GAME IS OVER, INITIALS CAN BE ENTERED AND SCORE CAN BE SAVED
-
-
-
-// document.getElementById("startQuiz").addEventListener("click", function(){
-//     var timeleft = 100;
-//     var score = 0;
-//     var questions = [
-//         {
-//             prompt: "what color are frogs?\n(a) Green\n\(b) Purple\n(c) Orange",
-//             answer: "a"
-//         },
-//         {
-//             prompt: "what color is grass?\n(a) purple\n\(b) orange\n(c) green",
-//             answer: "c"
-//         },
-//         {
-//             prompt: "where is the cavehill?\n(a) Ballymena\n\(b) Belfast\n(c) Dublin",
-//             answer: "b"
-//         }
-//     ];
-
-//     var downloadTimer = setInterval(function function1(){
-//         document.getElementById("countdown").innerHTML = timeleft + 
-//        "&nbsp"+"seconds remaining";
-
-       
-
-//        timeleft -= 1;
-//     if(timeleft <= 0){
-//        clearInterval(downloadTimer);
-//        document.getElementById("countdown").innerHTML = "Time is up!"
-//     }
-//     }, 1000);
    
-      
+   
+   
+    // var  true = (Math.floor((Math.random() * 2) + 1))
+
+    // if (answers == (true)) {
+    //     alert (Correct);
+    //     score++;
+    // } else {
+    //     alert(Wrong);
+    //     score = 0;
+    // }
+   // document.getElementById("score").innerHTML = score;     
+}
 
 //     for(var i=0; i < questions.length; i++){
 //         var response = window.prompt(questions[i].prompt);
@@ -219,5 +230,19 @@ const questions = [
 // });
 
 //    console.log(countdown); 
+
+// alert("you got" + score + "/" + questions.length);
+
+
+
+//WHEN A QUESTION IS ANSWERED INCORRECTLY THEN TIME IS SUBRACTED FROM THE CLOCK
+
+//WHEN ALL QUESTIONS ANSWERED, SCORE IS ANOUNCED AND TIMER SHOULD STOP
+
+//GAME OVER WHEN ALL QUESTIONS ARE ANSWERED OR WHEN THE TIMER REACHES 0
+
+//AFTER GAME IS OVER, INITIALS CAN BE ENTERED AND SCORE CAN BE SAVED
+
+
 
 // alert("you got" + score + "/" + questions.length);
