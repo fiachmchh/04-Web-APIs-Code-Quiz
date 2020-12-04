@@ -66,9 +66,6 @@ var shuffledQuestions, currentQuestionIndex
 
 //ONCE START BUTTON IS CLICKED...
 
-
-
-//OR...startButton.addEventListener('click', startGame (plus start timer function or new event listener))
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++
@@ -90,15 +87,11 @@ document.getElementById("start-btn").addEventListener("click", function(){
        document.getElementById("countdown").innerHTML = "Time is up!"
     }
     }, 1000);
-
-    //console.log(countdown);
-
 });
 
 // AND A QUESTION IS PRESENTED TO THE USER
 
 function startGame() {
-    //console.log('Started')
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
@@ -137,16 +130,15 @@ function resetState() {
 }
 
 function selectAnswer(e) {
-    //console.log('SELECT ANSWER HAPPENING!!')
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
-    console.log('SELECT ANSWER HAPPENING!!', e.target.value)
+    // console.log(e.target.value)
 
-    console.log('ccorrect answer!!', questions[currentQuestionIndex].correct)
+    // console.log(questions[currentQuestionIndex].correct)
     
     if (e.target.value === questions[currentQuestionIndex].correct){
      correctAnswer++
-     console.log('we found match',correctAnswer)
+    //  console.log(correctAnswer)
     }
 
     setStatusClass(document.body, correct)
@@ -156,21 +148,15 @@ function selectAnswer(e) {
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
-        console.log('HIT THE ELSE!! TIME TO RESTART!!!')
-
         var h = document.createElement("H1");
         var t = document.createTextNode("Your score is " + correctAnswer + " out of 5!");
         h.appendChild(t);
         document.getElementById('answer-buttons').appendChild(h);
-
-
-
-
-
         startButton.innerText = 'Restart'
         startButton.classList.remove('hide')
     }
 }
+
 
 function setStatusClass(element, correct){
     clearStatusClass(element)
@@ -181,13 +167,11 @@ function setStatusClass(element, correct){
     }
 }
 
+
 function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
-
-
-
 
 
 document.querySelector(".btn").onclick = function() {
@@ -198,41 +182,9 @@ document.querySelector(".btn").onclick = function() {
 let score = 0;
 document.getElementById("next-btn").onclick = function() {
     var  answers = document.getElementById("answer-buttons").value;
-    console.log('we got clicked!!', answers)
-    console.log('ccorrect answer!!', questions[currentQuestionIndex].correct)
-
-   
-   
-   
-    // var  true = (Math.floor((Math.random() * 2) + 1))
-
-    // if (answers == (true)) {
-    //     alert (Correct);
-    //     score++;
-    // } else {
-    //     alert(Wrong);
-    //     score = 0;
-    // }
-   // document.getElementById("score").innerHTML = score;     
+    // console.log('we got clicked!!', answers)
+    // console.log('ccorrect answer!!', questions[currentQuestionIndex].correct)
 }
-
-//     for(var i=0; i < questions.length; i++){
-//         var response = window.prompt(questions[i].prompt);
-//         if(response == questions[i].answer){
-//             score++;
-//             alert("Correct");
-//         }
-//         else {
-//             alert("Wrong")
-//         }
-//     }
-    
-// });
-
-//    console.log(countdown); 
-
-// alert("you got" + score + "/" + questions.length);
-
 
 
 //WHEN A QUESTION IS ANSWERED INCORRECTLY THEN TIME IS SUBRACTED FROM THE CLOCK
@@ -243,6 +195,3 @@ document.getElementById("next-btn").onclick = function() {
 
 //AFTER GAME IS OVER, INITIALS CAN BE ENTERED AND SCORE CAN BE SAVED
 
-
-
-// alert("you got" + score + "/" + questions.length);
